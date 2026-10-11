@@ -12,6 +12,7 @@
 --vim.api.nvim_set_hl(0, 'Number',     {fg = 'lightblue'})
 --vim.api.nvim_set_hl(0, 'Special',    {fg = '#aaaaa1'})
 
+vim.opt.shell = "cmd.exe" -- This affects both external commands and :term   
 
 vim.wo.number = true
 
@@ -20,14 +21,36 @@ vim.opt.cursorline = true
 vim.opt.expandtab = true
 vim.opt.tabstop = 4
 vim.opt.shiftwidth = 4
-vim.opt.guicursor = 'n-v-c-i:ver25' --block
+vim.opt.guicursor = 'n-v-c-i:block' --block
+vim.opt.foldmethod = "indent"
+vim.opt.foldenable = true
+vim.opt.foldlevel = 99
+
+vim.opt.list = true
+vim.opt.listchars:append({
+    space = '·',
+    tab = '» ',
+    trail = '•',
+})
 
 vim.cmd('let c_functions=1')
 vim.cmd('let c_function_pointers=1')
 --vim.cmd('syn sync fromstart')
 --vim.cmd('set foldmethod=syntax')
-vim.cmd('colorscheme asdfghjkl')
-vim.cmd('cd ~/dev')
+vim.cmd('colorscheme asdfghjkl') --gruvbox')
+vim.cmd('cd C:/temp/dev')
+
+vim.api.nvim_set_hl(0, "Cursor", {
+  fg = "#000000",
+  bg = "#ffffff",
+})
+
+
+vim.api.nvim_create_autocmd("BufEnter", {
+  callback = function()
+    vim.cmd("syntax sync fromstart")
+  end
+})   
 
 vim.api.nvim_create_autocmd("FileType", {
   pattern = { "c", "cpp", "hpp", "h" },
@@ -87,8 +110,11 @@ vim.keymap.set({'t'}, '<C-\\>', '<C-\\><C-n>', {silent = true})
 
 vim.keymap.set({'n'}, 'a', 'za', {noremap = true, silent = true})
 vim.keymap.set({'n'}, '<Tab>', '<cmd>tabnext<cr>', {noremap = true, silent = true})
+vim.keymap.set({'n'}, 'z', 'za', {noremap = true, silent = true})
+
+vim.keymap.set({'v'}, '>', '>gv', { remap = false })
+vim.keymap.set({'v'}, '<', '<gv', { remap = false })
 
 vim.opt.whichwrap = vim.opt.whichwrap + "<" + ">" + "[" + "]"
-
 
 
